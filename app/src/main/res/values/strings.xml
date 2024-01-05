@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Lesson2</string>
     <string name="fab_descr">Floating Action Button</string>
+    <string name="num_of_elem">Number</string>
 </resources>

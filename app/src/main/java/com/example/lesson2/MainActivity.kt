@@ -9,14 +9,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-//    private var intList: MutableList<Int> = mutableListOf()
     private lateinit var intList: MutableList<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         intList = savedInstanceState
-            ?.getIntegerArrayList("list")?.toMutableList() ?: mutableListOf()
+            ?.getIntegerArrayList(KEY)?.toMutableList() ?: mutableListOf()
         val recyclerview: RecyclerView = findViewById(R.id.activity_main__rv_cells)
         val adapter = CellAdapter(intList) // заполняет список данными
         recyclerview.adapter = adapter
@@ -34,8 +33,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putIntegerArrayList("list", ArrayList<Int>(intList))
+        outState.putIntegerArrayList(KEY, ArrayList<Int>(intList))
     }
 
+    companion object {
+        const val KEY = "list"
+    }
 
 }
