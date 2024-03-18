@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var intList: MutableList<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,15 +19,16 @@ class MainActivity : AppCompatActivity() {
         val adapter = CellAdapter(intList) // заполняет список данными
         recyclerview.adapter = adapter
         val orientation = resources.configuration.orientation
-        val columns = if (orientation == Configuration.ORIENTATION_PORTRAIT) 3 else 4
+        val columns = if (orientation == Configuration.ORIENTATION_PORTRAIT)
+            PORTRAIT_ORIENTATION_COUNT else LANDSCAPE_ORIENTATION_COUNT
         recyclerview.layoutManager = GridLayoutManager(this, columns)
 
         val fab: FloatingActionButton = findViewById(R.id.activity_main__fab)
-
         fab.setOnClickListener {
             intList.add(intList.size)
-            adapter.notifyDataSetChanged()
+            adapter.notifyItemChanged(intList.size - 1)
         }
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -37,7 +37,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val KEY = "list"
+        const val KEY = "List"
+        const val NUMBER = "Number"
+        const val PORTRAIT_ORIENTATION_COUNT = 3
+        const val LANDSCAPE_ORIENTATION_COUNT = 4
     }
 
 }

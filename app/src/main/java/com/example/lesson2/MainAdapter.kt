@@ -4,11 +4,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import java.util.prefs.Preferences
 
 class CellAdapter(
     private val cells: List<Int>
@@ -28,32 +26,27 @@ class CellAdapter(
     override fun getItemCount(): Int = cells.size
 
     class CellViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvNum: TextView = itemView.findViewById(R.id.view_fragment__tv_number)
-        private lateinit var newNum: TextView
-        private val linearLayout: LinearLayout =
-            itemView.findViewById(R.id.view_fragment__linear_layout)
+        private val tvNum: TextView =
+            itemView.findViewById(R.id.view_fragment__tv_number)
+        private val cardView: CardView =
+            itemView.findViewById(R.id.view_fragment__card_view)
 
         init {
             itemView.setOnClickListener {
                 val intent = Intent(it.context, SecondActivity::class.java)
-                intent.putExtra("Number", tvNum.text)
+                intent.putExtra(MainActivity.NUMBER, tvNum.text)
                 it.context.startActivity(intent)
             }
         }
 
         fun bind(cell: Int) {
-
             tvNum.text = cell.toString()
-            linearLayout.setBackgroundResource(
+            cardView.setBackgroundResource(
                 if (cell % 2 == 0)
                     R.color.imperial
                 else
                     R.color.cobalt
             )
-        }
-
-        companion object {
-            const val NUMBER = "Number"
         }
     }
 }
